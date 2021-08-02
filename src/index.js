@@ -21,18 +21,35 @@ const displayImages = (dogs) => {
 };
 
 const displayBreeds = (dogs) => {
+  const selectBreed = document.getElementById("breed-dropdown");
   const breeds = Object.keys(dogs);
   const dogBreeds = document.getElementById("dog-breeds");
-  breeds.forEach((breed) => {
-    const li = document.createElement("li");
-    li.setAttribute("id",`${breed}`);
-    li.innerText = breed;
-    dogBreeds.appendChild(li);
-    const liI = document.getElementById(breed);
-    liI.addEventListener("click", (e) => {
+
+  
+
+  selectBreed.addEventListener("change", () => {
+    while (dogBreeds.firstChild) {
+      dogBreeds.removeChild(dogBreeds.firstChild);
+      console.log(dogBreeds.firstChild);
+    }
+    const filteredBreed = breeds.filter(
+      (breed) => breed.charAt(0) === selectBreed.value
+    );
+    console.log("filered : ", filteredBreed);
+    
+    filteredBreed.forEach((breed) => {
+      const li = document.createElement("li");
+      li.setAttribute("id", `${breed}`);
+      li.innerText = breed;
+      dogBreeds.appendChild(li);
+      const liI = document.getElementById(breed);
+      liI.addEventListener("click", (e) => {
         liI.style.color = "#ff0000";
+      });
     });
   });
+
+  
 };
 
 document.addEventListener("DOMContentLoaded", () => {
